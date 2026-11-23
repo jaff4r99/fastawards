@@ -168,33 +168,46 @@ const short = n => n==="Maria Sol Saliva" ? "Maria Sol" : n.split(" ")[0];
 
 // Awards. q = ballot question, t = award title, c = compliment read on stage.
 const AWARDS = [
- {id:"travel", q:"Whose passport has seen the most conferences and COPs?", t:"Best International Feature",
+ {id:"travel", q:"Who is most likely to be at a conference or a COP right now?", t:"Best International Feature",
   c:"More stamps than a ministry archive. Carrying FAST/WE across borders, one side event at a time."},
- {id:"visuals", q:"Who makes the best slides, maps or figures?", t:"Best Visual Effects",
-  c:"Making data look like it belongs in a gallery. The audience gasps at every chart."},
- {id:"newbie", q:"Best newcomer to the FAST/WE cast this year?", t:"Breakthrough Performance of the Year",
+ {id:"visuals", q:"Who is most likely to make a slide that belongs in a gallery?", t:"Best Visual Effects",
+  c:"Making data look like art. The audience gasps at every chart."},
+ {id:"newbie", q:"Who was the best newbie this year?", t:"Breakthrough Performance of the Year",
   c:"Joined the cast and started stealing scenes from day one. Bonn was not ready."},
- {id:"distracted", q:"Who opens one email and ends up in five other projects by lunch?", t:"Everything Everywhere All at Once",
+ {id:"distracted", q:"Who is most likely to open one email and end up in five other projects by lunch?", t:"Everything Everywhere All at Once",
   c:"For a mind that runs twelve threads in parallel and somehow ties every one of them together."},
- {id:"coffee", q:"Who cannot start the day without their coffee (or tea) ritual?", t:"Best Supporting Caffeine",
+ {id:"coffee", q:"Who is most likely to be unreachable before their first coffee or tea?", t:"Best Supporting Caffeine",
   c:"Fuelled by the morning cup, powered by brilliance. The UN Campus kitchen thanks you for your loyal service."},
- {id:"weaver", q:"Who is best at weaving people and ideas together, Weaving Urban Futures style?", t:"The Golden Loom",
-  c:"If coalitions were fabric, you would be the thread holding the whole guidebook together. TUC would be proud."},
- {id:"acronym", fixed:"Nico Fricke", q:"Who comes up with the best acronyms?", t:"Best Original Acronym",
-  c:"Some people name a project. You give it an identity. ARRIVE and CANIS did not name themselves, and the whole building is jealous."},
+ {id:"weaver", q:"Who is most likely to bring people and ideas together?", t:"The Golden Loom",
+  c:"If ideas were threads, you would be the one weaving them into something that holds. Every team needs its loom."},
+ {id:"acronym", q:"Who is most likely to come up with the best acronym?", t:"Best Original Acronym",
+  c:"Some people name a project. You give it an identity. Somewhere, a project is grateful it got such a good name."},
  {id:"midnight", q:"Who is most likely to send an email at 23:47?", t:"The Night Shift",
   c:"Proof that good ideas do not check the clock. Now please, go to sleep."},
- {id:"deadline", q:"Who submits the proposal at 23:59 and still nails it?", t:"Best Thriller: Deadline",
+ {id:"deadline", q:"Who is most likely to submit a project proposal at 23:59 and still nail it?", t:"Best Thriller: Deadline",
   c:"Cool under pressure, sharp at the buzzer. Every call for proposals fears your final-hour energy."},
- {id:"meeting", q:"Who can turn a 5-minute check-in into a 60-minute deep dive?", t:"The Director's Cut",
+ {id:"meeting", q:"Who is most likely to turn a 5-minute check-in into a 60-minute deep dive?", t:"The Director's Cut",
   c:"Because some ideas deserve the extended edition, with commentary track."},
-   {id:"snacks", q:"Who keeps the team alive with snacks and cake?", t:"Best Catering in a Leading Role",
+ {id:"snacks", q:"Who is most likely to show up with snacks or cake?", t:"Best Catering in a Leading Role",
   c:"Morale is a renewable resource, and you are its main supplier."},
- {id:"calm", q:"Who stays calm when everything is on fire (metaphorically, hopefully)?", t:"Best Supporting Calm",
+ {id:"calm", q:"Who is most likely to stay calm when everything is on fire?", t:"Calm in Every Storm",
   c:"The steady hand behind every take. Things fall apart a little less when you are in the room."},
-  {id:"files", q:"Who always knows where that one file is on the shared drive?", t:"Lifetime Achievement in Finding Things",
+ {id:"files", q:"Who is most likely to know where that one file is on the shared drive?", t:"Lifetime Achievement in Finding Things",
   c:"The human search bar. Report_final_FINAL_v3 holds no secrets from you."},
- 
+ {id:"google", q:"Who is most likely to find any answer in under ten seconds?", t:"The Google Search Champion",
+  c:"Ask a question and the answer arrives before you finish typing it. Wikipedia nervously checks its sources."},
+ {id:"punctual", q:"Who is most likely to be first in the meeting room?", t:"The Always-On-Time Award",
+  c:"Early to every meeting and somehow never stressed about it. The clock sets itself by you."},
+ {id:"comedian", q:"Who is most likely to make the whole room laugh?", t:"The Office Comedian",
+  c:"Perfect timing, peer-reviewed. The break room is a better place for it."},
+ {id:"mute", q:"Who is most likely to start talking while still on mute?", t:"Best Silent Film Performance",
+  c:"A moving performance, entirely without sound. The audience can only imagine the dialogue."},
+ {id:"sigh", q:"Who is most likely to sigh loudly at work?", t:"Best Dramatic Performance",
+  c:"A sigh that carries across the whole floor. Shakespeare would have cast you as the lead."},
+ {id:"optimist", q:"Who is most likely to say 'it will all work out' on deadline day?", t:"The Eternal Optimist",
+  c:"Sees the glass half full and the grant as already approved. The sun follows you down the corridor."},
+ {id:"tabs", q:"Who is most likely to have 47 browser tabs open?", t:"Best Ensemble Cast of Tabs",
+  c:"Every tab is research, and every tab is essential. Nobody dares ask you to close one."}
 ];
 
 // Backup titles for anyone the votes did not reach.
@@ -218,7 +231,7 @@ const BACKUPS = [
 const ADS = [
  {brand:"Weaving Urban Futures", tag:"The guidebook that ties cities together.", fine:"From the makers of TUC. Side effects may include spontaneous coalition-building and an urge to buy yarn.", a1:"#1f5f5b", a2:"#0e2f3a"},
  {brand:"ARRIVE", tag:"The study that finally arrived.", fine:"Now with 100% more interview transcripts. Ask your supervisor if ARRIVE is right for you.", a1:"#5b2a86", a2:"#25103d"},
- {brand:"Acronyms Anonymous", tag:"Hi, my name is ARRIVE, and I have a backronym.", fine:"Meetings every Thursday. Nico brings the snacks. Terms and abbreviations apply.", a1:"#8a3b12", a2:"#3a1404"},
+ {brand:"Acronyms Anonymous", tag:"Hi, my name is ARRIVE, and I have a backronym.", fine:"Meetings every Thursday. Snacks provided. Terms and abbreviations apply.", a1:"#8a3b12", a2:"#3a1404"},
  {brand:"UN Campus Kitchen", tag:"Powering transformative research since forever.", fine:"Proud sponsor of the Best Supporting Caffeine award. Queue times not guaranteed.", a1:"#5a3a22", a2:"#20120a"}
 ];
 const AD_EVERY = 4;
@@ -311,7 +324,7 @@ function loop(){
 const STATUE = `<svg class="statue" viewBox="0 0 60 120" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#b8892b"/><stop offset=".5" stop-color="#fff1c2"/><stop offset="1" stop-color="#b8892b"/></linearGradient></defs><circle cx="30" cy="12" r="8" fill="url(#g)"/><path d="M22 22h16l-2 22 4 4-4 4 2 36h-6l-2-30-2 30h-6l2-36-4-4 4-4z" fill="url(#g)"/><rect x="16" y="94" width="28" height="8" rx="2" fill="url(#g)"/><rect x="12" y="102" width="36" height="14" rx="3" fill="#3a2a10" stroke="url(#g)" stroke-width="2"/></svg>`;
 
 /* ================= BACKEND (Supabase REST) ================= */
-let hostPin = "", revealed = false;
+let hostPin = "", revealed = false, lastErr = "";
 const BASE = SUPABASE_URL.replace(/\/rest\/v1\/?$/,"").replace(/\/+$/,"");
 const backendOn = () => !SUPABASE_URL.startsWith("PASTE");
 async function rpc(fn, args){
@@ -329,7 +342,7 @@ function rowsToMap(rows){
 }
 async function saveRemote(voter, votes){
   if(!backendOn()) return false;
-  try{ await rpc("submit_ballot", {p_voter:voter, p_votes:votes}); return true; }catch(e){ return false; }
+  try{ await rpc("submit_ballot", {p_voter:voter, p_votes:votes}); return true; }catch(e){ lastErr = String(e.message||e); return false; }
 }
 async function hostLoad(){ remote = rowsToMap(await rpc("host_get_ballots", {p_pin:hostPin})); }
 async function checkRevealed(){ try{ revealed = backendOn() ? !!(await rpc("is_revealed")) : false; }catch(e){} return revealed; }
@@ -337,7 +350,7 @@ function initDb(){ checkRevealed(); }
 
 /* ================= SCREENS ================= */
 let current = "";
-function go(screen){ current = screen; app.scrollTop = 0; ({intro:renderIntro, who:renderWho, ballot:renderBallot, review:renderReview, sealed:renderSealed, host:renderHost, show:renderShow, votes:renderAllVotes}[screen])(); }
+function go(screen){ if(pollT){ clearInterval(pollT); pollT=null; } current = screen; app.scrollTop = 0; ({intro:renderIntro, who:renderWho, ballot:renderBallot, review:renderReview, sealed:renderSealed, host:renderHost, show:renderShow, votes:renderAllVotes, watch:renderWatch}[screen])(); }
 
 function renderIntro(){
   document.body.classList.remove("open");
@@ -357,11 +370,13 @@ function renderWho(){
     <div class="center"><div class="kicker">Voting is open</div><h2 class="gold-text" style="margin-top:6px">Who's holding the ballot?</h2>
     <p class="sub">Pick your name. Yes, you may vote for yourself. We will not tell anyone.</p></div>
     <div class="grid">${ROSTER.map(n=>`<button class="choice" data-n="${esc(n)}">${esc(short(n))}${local[n]?' <span class="small">(voted)</span>':''}</button>`).join("")}</div>
+    <button class="btn" id="watchBtn">Watch the ceremony</button>
     <div class="center"><button class="linkish" id="allBtn">See everyone's votes</button> <button class="linkish" id="hostBtn">Host controls</button></div>
   </div>`;
   app.querySelectorAll(".choice").forEach(b => b.onclick = () => { me = b.dataset.n; draft = Object.assign({}, (lsGet()[me]||{}).votes||{}); step = 0; go("ballot"); });
   document.getElementById("hostBtn").onclick = () => go("host");
   document.getElementById("allBtn").onclick = () => go("votes");
+  document.getElementById("watchBtn").onclick = () => { audio(); go("watch"); };
 }
 
 const FIXED_WINNER = (AWARDS.find(a=>a.fixed)||{}).fixed || "";
@@ -371,7 +386,7 @@ function renderBallot(){
   const a = S[step];
   const nominees = ROSTER.filter(n => a.fixed || n !== FIXED_WINNER);
   const cnt = {}; if(!a.fixed) S.filter(x => x.id!==a.id && !x.fixed).forEach(x => { const v = draft[x.id]; if(v) cnt[v] = (cnt[v]||0)+1; });
-  const used = n => (cnt[n]||0) >= 2;
+  const used = n => (cnt[n]||0) >= 3;
   app.innerHTML = `<div class="wrap">
     <div class="row" style="justify-content:space-between;align-items:center"><span class="small">Ballot of ${esc(short(me))}</span><span class="small">${step+1} / ${S.length}</span></div>
     <div class="progress"><i style="width:${(step/S.length)*100}%"></i></div>
@@ -380,7 +395,7 @@ function renderBallot(){
       <div class="q" style="margin-top:10px">${esc(a.q)}</div>
     </div>
     <div class="grid">${nominees.map(n=>`<button class="choice ${draft[a.id]===n?'sel':''} ${used(n)?'used':''}" data-n="${esc(n)}">${esc(short(n))}</button>`).join("")}</div>
-    ${a.fixed ? "" : `<div class="small center">You can vote for yourself. Each colleague can be picked up to twice on your ballot, and crossed-out names are used up.</div>`}
+    ${a.fixed ? "" : `<div class="small center">You can vote for yourself. Each colleague can be picked up to three times on your ballot, and crossed-out names are used up.</div>`}
     <div class="row">
       <button class="btn ghost" id="back" style="flex:1">${step? "Back" : "Change name"}</button>
       <button class="btn ghost" id="skip" style="flex:1">${draft[a.id] ? "Next" : "Skip"}</button>
@@ -422,7 +437,7 @@ function renderSealed(){
     <div class="logo">${STATUE}</div>
     <h2 class="gold-text">Your envelope is sealed</h2>
     <p class="sub">${synced ? "Your ballot is in the vault. Results will be revealed at the ceremony." :
-      "Your vote did not reach the server. Check your connection and seal again, or send the code below to " + HOST_NAME + " on WhatsApp."}</p>
+      (/closed/.test(lastErr) ? "Voting has already closed, so this ballot was not counted. Sorry!" : "Your vote did not reach the server. Check your connection and seal again, or send the code below to " + HOST_NAME + " on WhatsApp.")}</p>
     <div class="card" style="text-align:left">
       <div class="small" style="margin-bottom:8px">${synced ? "Backup ballot code (only needed if " + HOST_NAME + " asks)" : "Your ballot code"}</div>
       <div class="code" id="code">${esc(code)}</div>
@@ -440,7 +455,7 @@ function renderSealed(){
 function allBallots(){
   const out = {};
   const add = (src) => Object.entries(src).forEach(([v,b]) => { if(!out[v] || (b.at||0) >= (out[v].at||0)) out[v] = b; });
-  add(remote); add(imported); add(lsGet());
+  add(remote); if(!backendOn()){ add(imported); add(lsGet()); }
   return out;
 }
 
@@ -467,15 +482,24 @@ function renderHost(){
   app.innerHTML = `<div class="wrap">
     <div class="center"><div class="kicker">Backstage</div><h2 class="gold-text" style="margin-top:6px">Host controls</h2>
     <p class="sub">${count} of ${ROSTER.length} ballots in.</p></div>
-    <div class="card list">${ROSTER.map(n=>`<div class="li"><span>${esc(n)}</span><span class="${all[n]?'ok':'no'}">${all[n]?'Voted':'Waiting'}</span></div>`).join("")}</div>
+    <div class="card list">${ROSTER.map(n=>`<div class="li"><span>${esc(n)}</span><span>${all[n]?`<span class="ok">Voted</span> <button class="linkish rm" data-n="${esc(n)}">Remove</button>`:'<span class="no">Waiting</span>'}</span></div>`).join("")}</div>
     <button class="btn ghost" id="refresh">Refresh</button>
+    <button class="btn ghost" id="reset">Reset everything (test cleanup)</button>
     <button class="btn" id="start" ${count? "" : "disabled"}>Start the ceremony</button>
-    <div class="small center">Starting the ceremony closes voting and unlocks the full vote list for everyone.</div>
+    <div class="small center">Starting the ceremony closes voting. Everyone else taps "Watch the ceremony" to follow along. The full vote list unlocks at the curtain call.</div>
     <button class="btn ghost" id="backWho">Back to voting</button>
   </div>`;
   document.getElementById("refresh").onclick = async (e) => { e.target.textContent="Loading..."; try{ await hostLoad(); }catch(err){} renderHost(); };
+  app.querySelectorAll(".rm").forEach(b => b.onclick = () => confirmModal("Remove the ballot of " + b.dataset.n + "? They can vote again afterwards.", "Remove", async () => {
+    try{ await rpc("host_delete_ballot", {p_pin:hostPin, p_voter:b.dataset.n}); await hostLoad(); }catch(e){}
+    renderHost();
+  }));
+  document.getElementById("reset").onclick = () => confirmModal("Delete ALL ballots, reopen voting and clear the show? This cannot be undone.", "Delete all", async () => {
+    try{ await rpc("host_reset", {p_pin:hostPin}); remote = {}; await hostLoad(); }catch(e){}
+    renderHost();
+  });
   document.getElementById("start").onclick = async () => {
-    try{ await hostLoad(); await rpc("host_set_revealed", {p_pin:hostPin, p_value:true}); revealed = true; }catch(e){}
+    try{ await hostLoad(); await rpc("host_set_closed", {p_pin:hostPin, p_value:true}); }catch(e){}
     buildCeremony(); showIdx = -1; go("show");
   };
   document.getElementById("backWho").onclick = () => go("who");
@@ -536,13 +560,12 @@ function hungarian(cost){
 let ceremony = [], finale = {}, showIdx = -1, phase = "intro";
 function buildCeremony(){
   const ballots = allBallots();
-  const FX = AWARDS.find(a => a.fixed);
-  const P = ROSTER.filter(n => n !== FX.fixed);       // people who earn an award through votes
-  const C = AWARDS.filter(a => !a.fixed);             // categories decided by votes
+  const P = ROSTER.slice();                 // everyone can win anything
+  const C = AWARDS.slice();
   const votes = P.map(() => C.map(() => 0));
   Object.entries(ballots).forEach(([voter,b]) => {
-    const seen = {};                                   // at most two votes per colleague per ballot
-    C.forEach((a,ci) => { const nm = b.votes[a.id]; const pi = P.indexOf(nm); if(pi>=0 && (seen[pi]||0)<2){ votes[pi][ci]++; seen[pi]=(seen[pi]||0)+1; } });
+    const seen = {};                         // at most three votes per colleague per ballot
+    C.forEach((a,ci) => { const nm = b.votes[a.id]; const pi = P.indexOf(nm); if(pi>=0 && (seen[pi]||0)<3){ votes[pi][ci]++; seen[pi]=(seen[pi]||0)+1; } });
   });
   const top = C.map((_,ci) => { let best=-1, bv=0; P.forEach((_,pi)=>{ if(votes[pi][ci]>bv){ bv=votes[pi][ci]; best=pi; } }); return best; });
   // One award per person: maximise how many people win a category they got votes in, then total votes.
@@ -563,17 +586,10 @@ function buildCeremony(){
     while(noms.length<3){ const extra = P.map((_,i)=>i).find(i=>!noms.includes(i) && !has[i]) ?? P.map((_,i)=>i).find(i=>!noms.includes(i)); if(extra===undefined) break; noms.push(extra); }
     entries.push({type:"award", award:a, winner:P[winner[ci]], noms:noms.map(i=>P[i]).sort()});
   });
-  // Fixed award: always goes to the named person, whatever the votes say.
-  const others = ROSTER.filter(n => n !== FX.fixed);
-  const tally = {}; Object.values(ballots).forEach(b => { const n = b.votes[FX.id]; if(n && n!==FX.fixed) tally[n]=(tally[n]||0)+1; });
-  const fixedNoms = others.slice().sort((x,y)=>(tally[y]||0)-(tally[x]||0) || Math.random()-.5).slice(0,2);
-  entries.push({type:"award", award:FX, winner:FX.fixed, noms:[FX.fixed, ...fixedNoms].sort()});
   // Backup titles for everyone the votes did not reach, so each person gets exactly one award.
   const pool = BACKUPS.slice().sort(() => Math.random()-.5); let bi = 0;
   P.forEach((name,pi) => { if(!has[pi]){ const b = pool[bi++ % pool.length]; entries.push({type:"award", award:{q:"A special honour from the Academy", t:b.t, c:b.c}, winner:name, noms:null}); } });
-  // Shuffle running order.
   for(let i=entries.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [entries[i],entries[j]]=[entries[j],entries[i]]; }
-  // Commercial breaks.
   const withAds = []; let adI = 0;
   entries.forEach((s,i) => { withAds.push(s); if((i+1)%AD_EVERY===0 && i<entries.length-1){ withAds.push({type:"ad", ad:ADS[adI%ADS.length]}); adI++; } });
   ceremony = withAds;
@@ -581,24 +597,55 @@ function buildCeremony(){
 }
 
 /* ================= CEREMONY ================= */
-function renderShow(){
+let seqN = Date.now(), pollT = null, lastSeq = 0;
+function awardCounts(){ const t = ceremony.filter(x=>x.type==="award").length; return t; }
+function hostModel(){
+  if(showIdx < 0) return {kind:"intro"};
+  if(showIdx >= ceremony.length) return {kind:"finale", finale};
+  const s = ceremony[showIdx];
+  if(s.type==="ad") return {kind:"ad", ad:s.ad};
+  const num = ceremony.slice(0,showIdx+1).filter(x=>x.type==="award").length, total = awardCounts();
+  const a = s.award, last = showIdx+1 >= ceremony.length;
+  if(phase==="win") return {kind:"win", num, total, last, entry:{award:{q:a.q,t:a.t,c:a.c}, winner:s.winner}};
+  return {kind: phase==="opening" ? "opening" : "noms", num, total, entry:{award:{q:a.q,t:a.t}, noms:s.noms}};   // winner stays hidden until the reveal
+}
+function publish(m){
+  if(!backendOn() || !hostPin) return;
+  m.seq = ++seqN;
+  rpc("host_set_show", {p_pin:hostPin, p_value:JSON.stringify(m)}).catch(()=>{});
+}
+function sync(){ const m = hostModel(); drawModel(m, true); publish(m); }
+function renderShow(){ sync(); }
+
+function drawModel(m, host){
   document.body.classList.remove("spotlight");
-  if(showIdx < 0){
+  const hint = host ? "" : `<p class="small">The host is running the show from their phone.</p>`;
+  if(m.kind==="intro"){
     app.innerHTML = `<div class="wrap center" style="margin-top:4vh">
       <div class="logo">${STATUE}</div>
       <div class="kicker">Live from Bonn</div>
       <h1 class="gold-text">Good evening, FAST/WE</h1>
       <p class="sub">The ballots are counted. The envelopes are sealed. Nobody leaves without a statuette.</p>
-      <button class="btn" id="go">Begin the ceremony</button></div>`;
-    document.getElementById("go").onclick = () => { fanfare(); applause(3); showIdx=0; phase="noms"; renderShow(); };
+      ${host ? `<button class="btn" id="go">Begin the ceremony</button>` : hint}</div>`;
+    if(host) document.getElementById("go").onclick = () => { fanfare(); applause(3); showIdx=0; phase="noms"; sync(); };
     return;
   }
-  if(showIdx >= ceremony.length) return renderFinale();
-  const s = ceremony[showIdx];
-  const awardNum = ceremony.slice(0,showIdx+1).filter(x=>x.type==="award").length;
-  const totalAwards = ceremony.filter(x=>x.type==="award").length;
-  if(s.type==="ad"){
-    const a = s.ad;
+  if(m.kind==="finale"){
+    app.innerHTML = `<div class="wrap center">
+      <div class="logo">${STATUE}</div>
+      <h1 class="gold-text">Curtain call</h1>
+      <p class="sub">Every member of the FAST/WE cast takes home a statuette tonight.</p>
+      <div class="finale-grid" style="text-align:left">${Object.entries(m.finale||{}).sort().map(([n,ts])=>`<div class="fg"><b>${esc(n)}</b>${ts.map(t=>`<span>${esc(t)}</span>`).join("")}</div>`).join("")}</div>
+      <button class="btn" id="allv">See everyone's votes</button>
+      ${host ? `<button class="btn ghost" id="again">Back to host controls</button>` : `<button class="btn ghost" id="again">Back to start</button>`}</div>`;
+    confetti(); applause(5); fanfare();
+    document.getElementById("again").onclick = () => go(host ? "host" : "who");
+    document.getElementById("allv").onclick = () => go("votes");
+    if(host) rpc("host_set_revealed", {p_pin:hostPin, p_value:true}).catch(()=>{});
+    return;
+  }
+  if(m.kind==="ad"){
+    const a = m.ad;
     app.innerHTML = `<div class="wrap center">
       <div class="bumper"><i></i>COMMERCIAL BREAK</div>
       <div class="ad"><div class="ad-screen" style="--a1:${a.a1};--a2:${a.a2}">
@@ -608,50 +655,57 @@ function renderShow(){
         <div class="ad-fine">${esc(a.fine)}</div>
       </div></div>
       <p class="sub">Grab a drink. Refill a glass. The show continues shortly.</p>
-      <button class="btn" id="back">Back to the show</button></div>`;
-    document.getElementById("back").onclick = () => { showIdx++; phase="noms"; fanfare(); renderShow(); };
+      ${host ? `<button class="btn" id="back">Back to the show</button>` : ""}</div>`;
+    if(host) document.getElementById("back").onclick = () => { showIdx++; phase="noms"; fanfare(); sync(); };
     return;
   }
-  const a = s.award;
-  if(phase==="noms"){
+  const a = m.entry.award;
+  if(m.kind==="noms" || m.kind==="opening"){
+    const opening = m.kind==="opening";
     app.innerHTML = `<div class="wrap center">
-      <div class="kicker">Award ${awardNum} of ${totalAwards}</div>
+      <div class="kicker">Award ${m.num} of ${m.total}</div>
       <div class="q" style="font-size:19px;color:var(--muted)">${esc(a.q)}</div>
       <h2 class="gold-text" style="font-size:26px">${esc(a.t)}</h2>
-      ${s.noms ? `<div class="small">The nominees are</div><div class="noms">${s.noms.map(n=>`<span class="nom">${esc(short(n))}</span>`).join("")}</div>` : `<div class="small">The Academy has one more envelope</div>`}
-      <div class="envelope" id="env"></div>
-      <button class="btn" id="open">Open the envelope</button></div>`;
-    document.getElementById("open").onclick = (e) => {
-      e.target.disabled = true; e.target.textContent = "And the award goes to...";
+      ${m.entry.noms ? `<div class="small">The nominees are</div><div class="noms">${m.entry.noms.map(n=>`<span class="nom">${esc(short(n))}</span>`).join("")}</div>` : `<div class="small">The Academy has one more envelope</div>`}
+      <div class="envelope ${opening?'shake':''}" id="env"></div>
+      ${host ? `<button class="btn" id="open" ${opening?'disabled':''}>${opening?'And the award goes to...':'Open the envelope'}</button>` : `<p class="small">${opening?'And the award goes to...':'The host is about to open the envelope...'}</p>`}</div>`;
+    if(opening){
       document.body.classList.add("spotlight");
-      const env = document.getElementById("env"); env.classList.add("shake"); drumroll(2.6);
-      setTimeout(()=>{ env.classList.remove("shake"); env.classList.add("opened"); }, 2400);
-      setTimeout(()=>{ phase="win"; renderShow(); }, 2700);
+      setTimeout(()=>{ const env=document.getElementById("env"); if(env){ env.classList.remove("shake"); env.classList.add("opened"); } }, 2400);
+    }
+    if(host && !opening) document.getElementById("open").onclick = () => {
+      phase = "opening"; sync();
+      setTimeout(()=>{ if(phase==="opening"){ phase="win"; sync(); } }, 2700);
     };
-  } else {
-    app.innerHTML = `<div class="wrap center">
-      <div class="kicker reveal">And the award goes to</div>
-      <div class="winner-name gold-text reveal" style="animation-delay:.1s">${esc(s.winner)}</div>
-      <div class="award-title gold-text reveal" style="animation-delay:.4s">${esc(a.t)}</div>
-      <div class="card reveal" style="animation-delay:.7s"><p class="play" style="margin:0;font-size:18px;line-height:1.5;font-style:italic">${esc(a.c)}</p></div>
-      <button class="btn reveal" id="next" style="animation-delay:1s">${showIdx+1>=ceremony.length ? "Curtain call" : "Next award"}</button></div>`;
-    document.body.classList.add("spotlight");
-    confetti(); applause(4); fanfare();
-    document.getElementById("next").onclick = () => { showIdx++; phase="noms"; renderShow(); };
+    return;
   }
+  // win
+  app.innerHTML = `<div class="wrap center">
+    <div class="kicker reveal">And the award goes to</div>
+    <div class="winner-name gold-text reveal" style="animation-delay:.1s">${esc(m.entry.winner)}</div>
+    <div class="award-title gold-text reveal" style="animation-delay:.4s">${esc(a.t)}</div>
+    <div class="card reveal" style="animation-delay:.7s"><p class="play" style="margin:0;font-size:18px;line-height:1.5;font-style:italic">${esc(a.c)}</p></div>
+    ${host ? `<button class="btn reveal" id="next" style="animation-delay:1s">${m.last ? "Curtain call" : "Next award"}</button>` : ""}</div>`;
+  document.body.classList.add("spotlight");
+  confetti(); applause(4); fanfare();
+  if(host) document.getElementById("next").onclick = () => { showIdx++; phase="noms"; sync(); };
 }
 
-function renderFinale(){
-  document.body.classList.remove("spotlight");
-  app.innerHTML = `<div class="wrap center">
-    <div class="logo">${STATUE}</div>
-    <h1 class="gold-text">Curtain call</h1>
-    <p class="sub">Every member of the FAST/WE cast takes home a statuette tonight.</p>
-    <div class="finale-grid" style="text-align:left">${Object.entries(finale).sort().map(([n,ts])=>`<div class="fg"><b>${esc(n)}</b>${ts.map(t=>`<span>${esc(t)}</span>`).join("")}</div>`).join("")}</div>
-    <button class="btn" id="allv">See everyone's votes</button><button class="btn ghost" id="again">Back to host controls</button></div>`;
-  confetti(); applause(5); fanfare();
-  document.getElementById("again").onclick = () => go("host");
-  document.getElementById("allv").onclick = () => go("votes");
+// Viewer screen: every phone follows the host's show.
+function renderWatch(){
+  lastSeq = 0;
+  app.innerHTML = `<div class="wrap center" style="margin-top:8vh"><div class="logo">${STATUE}</div>
+    <h2 class="gold-text">Waiting for the host</h2><p class="sub">The show will appear here the moment ${esc(HOST_NAME)} starts it. Keep this screen open.</p>
+    <button class="btn ghost" id="b">Back</button></div>`;
+  document.getElementById("b").onclick = () => go("who");
+  const tick = async () => {
+    if(current!=="watch") return;
+    try{
+      const t = await rpc("get_show");
+      if(t){ const m = JSON.parse(t); if(m.seq !== lastSeq){ lastSeq = m.seq; audio(); drawModel(m, false); } }
+    }catch(e){}
+  };
+  tick(); pollT = setInterval(tick, 1500);
 }
 
 /* ================= BOOT ================= */
