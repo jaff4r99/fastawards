@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The FAST/WE Awards 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Playfair+Display:ital,wght@0,600;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#e7c46a; --gold2:#b8892b; --gold3:#fff1c2;
+  --red:#7a0b14; --red2:#4a050b; --ink:#0b0708; --card:#17100f;
+  --text:#f5ecd9; --muted:#bfae8f;
+  --safe-t:env(safe-area-inset-top,0px); --safe-b:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--ink);color:var(--text);font-family:Inter,system-ui,sans-serif;overflow:hidden}
+button{font:inherit;color:inherit;cursor:pointer}
+.gold-text{background:linear-gradient(180deg,var(--gold3),var(--gold) 45%,var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.cinzel{font-family:Cinzel,serif;letter-spacing:.06em}
+.play{font-family:"Playfair Display",serif}
+
+/* Stage */
+#stage{position:fixed;inset:0;display:flex;flex-direction:column;
+  background:
+   radial-gradient(ellipse 60% 45% at 50% 18%,rgba(255,226,150,.22),transparent 70%),
+   radial-gradient(ellipse 90% 60% at 50% 110%,rgba(122,11,20,.55),transparent 70%),
+   linear-gradient(#120a0b,#070405)}
+#stage::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:conic-gradient(from 200deg at 20% -10%,transparent 0 8deg,rgba(255,230,170,.07) 10deg 18deg,transparent 20deg),
+             conic-gradient(from 140deg at 80% -10%,transparent 0 8deg,rgba(255,230,170,.07) 10deg 18deg,transparent 20deg);
+  animation:sweep 9s ease-in-out infinite alternate}
+@keyframes sweep{to{transform:translateX(4%) }}
+#valance{position:fixed;top:0;left:0;right:0;height:calc(34px + var(--safe-t));z-index:30;pointer-events:none;
+  background:repeating-radial-gradient(circle at 50% -60%,#9b1420 0 18px,#5a070f 26px 30px);
+  box-shadow:0 6px 18px rgba(0,0,0,.7);border-bottom:3px solid var(--gold2)}
+#valance::after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:10px;
+  background:radial-gradient(circle at 10px -2px,var(--gold) 3px,transparent 4px) 0 0/20px 10px repeat-x}
+
+/* Curtains */
+.curtain{position:fixed;top:0;bottom:0;width:51%;z-index:25;transition:transform 2.2s cubic-bezier(.7,0,.2,1);
+  background:repeating-linear-gradient(90deg,#5a060e 0,#9c1422 6%,#c0202f 9%,#86101c 13%,#4d040b 17%);
+  box-shadow:inset 0 0 60px rgba(0,0,0,.6)}
+.curtain::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),transparent 30%,transparent 75%,rgba(0,0,0,.5))}
+#cL{left:0;transform-origin:left}
+#cR{right:0}
+body.open #cL{transform:translateX(-92%) scaleX(.9)}
+body.open #cR{transform:translateX(92%) scaleX(.9)}
+
+/* Main scroll area */
+main{position:relative;z-index:10;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:calc(56px + var(--safe-t)) 18px calc(120px + var(--safe-b));display:flex;flex-direction:column;align-items:center}
+.wrap{width:100%;max-width:480px;display:flex;flex-direction:column;gap:16px}
+.center{text-align:center}
+
+/* Audience */
+#audience{position:fixed;left:0;right:0;bottom:0;height:calc(84px + var(--safe-b));z-index:20;pointer-events:none}
+#audience svg{width:100%;height:100%;display:block}
+#audience .head{transform-box:fill-box;transform-origin:50% 100%}
+body.cheer #audience .head{animation:bob .35s ease-in-out infinite alternate}
+@keyframes bob{to{transform:translateY(-6px)}}
+
+/* Top bar */
+#topbar{position:fixed;top:calc(40px + var(--safe-t));right:10px;z-index:31;display:flex;gap:8px}
+.pill{background:rgba(0,0,0,.55);border:1px solid rgba(231,196,106,.4);border-radius:999px;padding:6px 12px;font-size:13px;color:var(--gold)}
+
+/* Elements */
+.logo{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:8px}
+.statue{width:64px;height:auto;filter:drop-shadow(0 0 16px rgba(231,196,106,.45))}
+h1{margin:0;font-family:Cinzel,serif;font-weight:900;font-size:clamp(30px,9vw,44px);line-height:1.05;letter-spacing:.04em}
+h2{margin:0;font-family:Cinzel,serif;font-weight:700;font-size:22px;letter-spacing:.05em}
+.sub{color:var(--muted);font-size:15px;line-height:1.5}
+.kicker{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+.card{background:linear-gradient(180deg,rgba(32,20,18,.92),rgba(18,11,10,.95));border:1px solid rgba(231,196,106,.35);
+  border-radius:18px;padding:20px;box-shadow:0 10px 40px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,240,200,.08)}
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:16px 18px;font-weight:600;font-size:17px;
+  background:linear-gradient(180deg,#f3d886,#c99a37);color:#2a1a05;box-shadow:0 6px 0 #7d5a17,0 10px 24px rgba(0,0,0,.45);
+  transition:transform .08s}
+.btn:active{transform:translateY(3px);box-shadow:0 3px 0 #7d5a17}
+.btn.ghost{background:transparent;color:var(--gold);border:1px solid rgba(231,196,106,.5);box-shadow:none}
+.btn:disabled{opacity:.45}
+.row{display:flex;gap:10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.choice{border:1px solid rgba(231,196,106,.3);background:rgba(255,255,255,.03);border-radius:14px;padding:14px 10px;
+  font-size:15px;font-weight:500;min-height:56px;transition:all .15s}
+.choice.sel{background:linear-gradient(180deg,#f3d886,#c99a37);color:#2a1a05;border-color:transparent;transform:scale(1.03)}
+.progress{height:6px;border-radius:6px;background:rgba(255,255,255,.08);overflow:hidden}
+.progress>i{display:block;height:100%;background:linear-gradient(90deg,var(--gold2),var(--gold3));transition:width .3s}
+.q{font-family:"Playfair Display",serif;font-size:22px;line-height:1.3}
+.small{font-size:13px;color:var(--muted)}
+.code{font-family:ui-monospace,Menlo,monospace;font-size:12px;word-break:break-all;background:#000;border:1px dashed var(--gold2);
+  border-radius:10px;padding:12px;color:var(--gold3)}
+textarea{width:100%;min-height:110px;background:#000;color:var(--gold3);border:1px solid var(--gold2);border-radius:10px;padding:10px;font:12px ui-monospace,Menlo,monospace}
+.list{display:flex;flex-direction:column;gap:6px}
+.li{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.04);font-size:15px}
+.ok{color:#9be29b}.no{color:#7b6b5a}
+.linkish{background:none;border:0;color:var(--muted);text-decoration:underline;font-size:13px;padding:8px}
+
+/* Show */
+.envelope{position:relative;margin:4px auto;width:220px;height:140px;border-radius:8px;
+  background:linear-gradient(160deg,#f6e3a8,#d6ae52 55%,#b58a2e);box-shadow:0 14px 40px rgba(0,0,0,.6)}
+.envelope::before{content:"";position:absolute;left:0;right:0;top:0;height:78px;background:linear-gradient(180deg,#e9cc77,#c99a37);
+  clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .6s}
+.envelope::after{content:"";position:absolute;left:50%;top:62px;width:30px;height:30px;margin-left:-15px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#d33,#7a0b14);box-shadow:0 2px 6px rgba(0,0,0,.5)}
+.envelope.opened::before{transform:rotateX(180deg)}
+.envelope.opened::after{opacity:0}
+.shake{animation:shake .12s infinite}
+@keyframes shake{0%{transform:translate(1px,0) rotate(-1deg)}50%{transform:translate(-1px,1px) rotate(1deg)}100%{transform:translate(1px,-1px)}}
+.winner-name{font-family:Cinzel,serif;font-weight:900;font-size:clamp(34px,11vw,52px);line-height:1.05;text-shadow:0 0 30px rgba(231,196,106,.4)}
+.award-title{font-family:"Playfair Display",serif;font-style:italic;font-size:24px}
+.reveal{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:1;transform:none}}
+.noms{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.nom{padding:8px 14px;border-radius:999px;border:1px solid rgba(231,196,106,.45);font-size:15px}
+.spot{position:fixed;inset:0;z-index:5;pointer-events:none;opacity:0;transition:opacity 1s;
+  background:radial-gradient(circle at 50% 42%,rgba(255,240,200,.28),transparent 38%),rgba(0,0,0,.45)}
+body.spotlight .spot{opacity:1}
+
+/* Commercial break */
+.ad{border-radius:16px;overflow:hidden;border:6px solid #2a2a2a;box-shadow:0 0 0 2px #555,0 20px 50px rgba(0,0,0,.7);background:#111}
+.ad-screen{position:relative;padding:22px 18px;min-height:300px;display:flex;flex-direction:column;gap:12px;justify-content:center;
+  background:linear-gradient(135deg,var(--a1),var(--a2));color:#fff;text-align:center}
+.ad-screen::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.12) 0 2px,transparent 2px 4px);animation:flick .2s infinite}
+@keyframes flick{50%{opacity:.7}}
+.ad-brand{font-family:Cinzel,serif;font-weight:900;font-size:28px;letter-spacing:.04em}
+.ad-tag{font-family:"Playfair Display",serif;font-style:italic;font-size:19px}
+.ad-fine{font-size:11px;opacity:.85}
+.bumper{font-family:Cinzel,serif;font-size:13px;letter-spacing:.3em;color:#ff5a5a;display:flex;align-items:center;gap:8px;justify-content:center}
+.bumper i{width:10px;height:10px;border-radius:50%;background:#ff3b3b;animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.2}}
+
+.finale-grid{display:grid;grid-template-columns:1fr;gap:10px}
+.fg{padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(231,196,106,.25)}
+.fg b{font-family:Cinzel,serif;color:var(--gold3)}
+.fg span{display:block;font-family:"Playfair Display",serif;font-style:italic;color:var(--gold);font-size:15px;margin-top:2px}
+
+#confetti{position:fixed;inset:0;z-index:40;pointer-events:none}
+.modal{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;padding:20px}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<div class="spot"></div>
+<div id="valance"></div>
+<div class="curtain" id="cL"></div>
+<div class="curtain" id="cR"></div>
+<div id="topbar"><button class="pill" id="muteBtn" aria-label="Toggle sound">Sound on</button></div>
+<main id="app"></main>
+<div id="audience"></div>
+<canvas id="confetti"></canvas>
+<div id="modal" class="modal hidden"></div>
+
+<script>
+/* ================= CONFIG ================= */
+// Players (voters and nominees). Dustin is not playing.
+const ROSTER = [
+  "Jaffar Abbas","Nico Fricke","Flavia Guerra","Andrea Ramirez","Alejandra Ramos-Galvez",
+  "Andreia da Silva Rosa","Simone Sandholz","Dominic Sett","Maria Sol Saliva","Lucas Turmena",
+  "Yauheniya Shershunovich","Rafael Kuhn","Nabiyya Perrenia"
+];
+const short = n => n==="Maria Sol Saliva" ? "Maria Sol" : n.split(" ")[0];
+
+// Awards. q = ballot question, t = award title, c = compliment read on stage.
+const AWARDS = [
+ {id:"newbie", q:"Best newcomer to the FAST/WE cast this year?", t:"Breakthrough Performance of the Year",
+  c:"Joined the cast and started stealing scenes from day one. Bonn was not ready."},
+ {id:"distracted", q:"Who opens one email and ends up in five other projects by lunch?", t:"Everything Everywhere All at Once",
+  c:"For a mind that runs twelve threads in parallel and somehow ties every one of them together."},
+ {id:"coffee", q:"Who cannot start the day without their coffee (or tea) ritual?", t:"Best Supporting Caffeine",
+  c:"Fuelled by the morning cup, powered by brilliance. The UN Campus kitchen thanks you for your loyal service."},
+ {id:"weaver", q:"Who is best at weaving people and ideas together, Weaving Urban Futures style?", t:"The Golden Loom",
+  c:"If coalitions were fabric, you would be the thread holding the whole guidebook together. TUC would be proud."},
+ {id:"fieldwork", q:"Who would interview anyone, anywhere, for the sake of the study?", t:"Best Documentary Feature",
+  c:"Every study needs someone who actually goes out and asks. From ARRIVE-style interviews to site visits, you bring the evidence home."},
+ {id:"midnight", q:"Who is most likely to send an email at 23:47?", t:"The Night Shift",
+  c:"Proof that good ideas do not check the clock. Now please, go to sleep."},
+ {id:"deadline", q:"Who submits the proposal at 23:59 and still nails it?", t:"Best Thriller: Deadline",
+  c:"Cool under pressure, sharp at the buzzer. Every call for proposals fears your final-hour energy."},
+ {id:"meeting", q:"Who can turn a 5-minute check-in into a 60-minute deep dive?", t:"The Director's Cut",
+  c:"Because some ideas deserve the extended edition, with commentary track."},
+ {id:"acronym", q:"Who can fit NDC, NbS, VNR and L&D into one sentence without blinking?", t:"Best Original Acronym",
+  c:"Fluent in UN. Translator of the untranslatable. JUST-NDC 3.0 salutes you."},
+ {id:"nuance", q:"Who is most likely to say 'well, it depends on the context'?", t:"The Nuance Award",
+  c:"For refusing easy answers. Science thanks you. Reviewer 2 fears you."},
+ {id:"snacks", q:"Who keeps the team alive with snacks and cake?", t:"Best Catering in a Leading Role",
+  c:"Morale is a renewable resource, and you are its main supplier."},
+ {id:"calm", q:"Who stays calm when everything is on fire (metaphorically, hopefully)?", t:"Best Supporting Calm",
+  c:"The steady hand behind every take. Things fall apart a little less when you are in the room."},
+ {id:"travel", q:"Whose passport has seen the most conferences and COPs?", t:"Best International Feature",
+  c:"More stamps than a ministry archive. Carrying FAST/WE across borders, one side event at a time."},
+ {id:"files", q:"Who always knows where that one file is on the shared drive?", t:"Lifetime Achievement in Finding Things",
+  c:"The human search bar. Report_final_FINAL_v3 holds no secrets from you."},
+ {id:"visuals", q:"Who makes the best slides, maps or figures?", t:"Best Visual Effects",
+  c:"Making data look like it belongs in a gallery. The audience gasps at every chart."}
+];
+
+// Backup titles for anyone the votes did not reach.
+const BACKUPS = [
+ {t:"The Spirit of FAST/WE", c:"For being the kind of colleague that makes this place feel like a team, not an org chart."},
+ {t:"Best Ensemble Cast Member", c:"No film works without its ensemble, and this one would fall apart without you."},
+ {t:"The Golden Bonn Award", c:"Awarded for consistent excellence, good humour and surviving another Bonn winter with style."},
+ {t:"Most Valuable Colleague", c:"Quietly essential. The credits roll a little longer because of you."},
+ {t:"The People's Favourite", c:"The audience has spoken: they simply like having you around."},
+ {t:"Best Plot Twist", c:"Always bringing the idea nobody saw coming, and it usually works."}
+];
+
+const ADS = [
+ {brand:"Weaving Urban Futures", tag:"The guidebook that ties cities together.", fine:"From the makers of TUC. Side effects may include spontaneous coalition-building and an urge to buy yarn.", a1:"#1f5f5b", a2:"#0e2f3a"},
+ {brand:"ARRIVE", tag:"The study that finally arrived.", fine:"Now with 100% more interview transcripts. Ask your supervisor if ARRIVE is right for you.", a1:"#5b2a86", a2:"#25103d"},
+ {brand:"JUST-NDC 3.0", tag:"Justice, now in version 3.0.", fine:"Coming soon to a COP31 side event near you. Rated J for Justice.", a1:"#8a3b12", a2:"#3a1404"},
+ {brand:"UN Campus Kitchen", tag:"Powering transformative research since forever.", fine:"Proud sponsor of the Best Supporting Caffeine award. Queue times not guaranteed.", a1:"#5a3a22", a2:"#20120a"}
+];
+const AD_EVERY = 4;
+// ---- Paste your Supabase values here (Project Settings > API) ----
+const SUPABASE_URL = "PASTE_YOUR_PROJECT_URL";
+const SUPABASE_KEY = "PASTE_YOUR_PUBLISHABLE_KEY";
+const HOST_NAME = "Jaffar";
+
+/* ================= STATE ================= */
+const app = document.getElementById("app");
+let db = null, user = null, myId = null, isOwner = false;
+let remote = {};          // voterName -> {votes, at}
+let imported = {};        // voterName -> {votes, at}
+let me = null;            // current voter name
+let draft = {};           // awardId -> nominee name
+let step = 0;
+let synced = false;
+
+const LS = "fastAwards2026.ballots";
+function lsGet(){ try{ return JSON.parse(localStorage.getItem(LS)||"{}") }catch(e){ return {} } }
+function lsSet(o){ try{ localStorage.setItem(LS, JSON.stringify(o)) }catch(e){} }
+
+function esc(s){ return String(s).replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m])) }
+
+/* ================= BALLOT CODES ================= */
+function encodeBallot(voter, votes){
+  const payload = {n:ROSTER.indexOf(voter), v:AWARDS.map(a => votes[a.id] ? ROSTER.indexOf(votes[a.id]) : -1)};
+  return "FAST1-" + btoa(JSON.stringify(payload)).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+}
+function decodeBallot(code){
+  try{
+    let b = code.replace(/^FAST1-/,"").replace(/-/g,"+").replace(/_/g,"/");
+    while(b.length%4) b+="=";
+    const p = JSON.parse(atob(b));
+    const voter = ROSTER[p.n]; if(!voter) return null;
+    const votes = {};
+    AWARDS.forEach((a,i)=>{ const x = p.v[i]; if(x>=0 && ROSTER[x] && ROSTER[x]!==voter) votes[a.id]=ROSTER[x]; });
+    return {voter, votes};
+  }catch(e){ return null }
+}
+
+/* ================= SOUND ================= */
+let ac = null, muted = false;
+function audio(){ if(muted) return null; if(!ac){ try{ ac = new (window.AudioContext||window.webkitAudioContext)() }catch(e){ return null } } if(ac.state==="suspended") ac.resume(); return ac; }
+function noiseBuf(c, secs){ const b = c.createBuffer(1, c.sampleRate*secs, c.sampleRate); const d=b.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=Math.random()*2-1; return b; }
+function drumroll(dur=2.6){
+  const c = audio(); if(!c) return;
+  const buf = noiseBuf(c, .08), t0 = c.currentTime;
+  for(let t=0; t<dur; t+= .045 - Math.min(.015, t*.006)){
+    const s=c.createBufferSource(); s.buffer=buf;
+    const f=c.createBiquadFilter(); f.type="bandpass"; f.frequency.value=1800; f.Q.value=.8;
+    const g=c.createGain(); const v = .08 + .25*(t/dur);
+    g.gain.setValueAtTime(v, t0+t); g.gain.exponentialRampToValueAtTime(.001, t0+t+.06);
+    s.connect(f).connect(g).connect(c.destination); s.start(t0+t);
+  }
+  // cymbal
+  const s=c.createBufferSource(); s.buffer=noiseBuf(c,1.6);
+  const f=c.createBiquadFilter(); f.type="highpass"; f.frequency.value=5000;
+  const g=c.createGain(); g.gain.setValueAtTime(.5,t0+dur); g.gain.exponentialRampToValueAtTime(.001,t0+dur+1.5);
+  s.connect(f).connect(g).connect(c.destination); s.start(t0+dur);
+}
+function fanfare(){
+  const c = audio(); if(!c) return; const t0=c.currentTime+.05;
+  [[392,0],[523.25,.18],[659.25,.36],[783.99,.54],[659.25,.9],[783.99,1.05]].forEach(([fr,dt],i)=>{
+    const o=c.createOscillator(); o.type="sawtooth"; o.frequency.value=fr;
+    const f=c.createBiquadFilter(); f.type="lowpass"; f.frequency.value=2200;
+    const g=c.createGain(); const len = i>=4 ? .9 : .22;
+    g.gain.setValueAtTime(0,t0+dt); g.gain.linearRampToValueAtTime(.09,t0+dt+.03); g.gain.exponentialRampToValueAtTime(.001,t0+dt+len);
+    o.connect(f).connect(g).connect(c.destination); o.start(t0+dt); o.stop(t0+dt+len+.05);
+  });
+}
+function applause(dur=3.5){
+  const c = audio(); if(!c) return; const t0=c.currentTime;
+  const s=c.createBufferSource(); s.buffer=noiseBuf(c,dur);
+  const f=c.createBiquadFilter(); f.type="bandpass"; f.frequency.value=2500; f.Q.value=.6;
+  const g=c.createGain(); g.gain.setValueAtTime(0,t0);
+  for(let t=0;t<dur;t+=.03){ const env = Math.min(1,t/.4)*Math.max(0,1-(t/dur)**3); g.gain.setValueAtTime((.15+Math.random()*.25)*env, t0+t); }
+  s.connect(f).connect(g).connect(c.destination); s.start(t0);
+  document.body.classList.add("cheer"); setTimeout(()=>document.body.classList.remove("cheer"), dur*1000);
+}
+document.getElementById("muteBtn").onclick = e => { muted=!muted; e.target.textContent = muted ? "Sound off" : "Sound on"; };
+
+/* ================= CONFETTI ================= */
+const cv = document.getElementById("confetti"), cx = cv.getContext("2d"); let parts=[], raf=null;
+function sizeCv(){ cv.width=innerWidth*devicePixelRatio; cv.height=innerHeight*devicePixelRatio; }
+addEventListener("resize", sizeCv); sizeCv();
+function confetti(){
+  const cols=["#f3d886","#fff1c2","#c99a37","#ffffff","#e7c46a","#b8892b"];
+  for(let i=0;i<160;i++) parts.push({x:Math.random()*cv.width,y:-Math.random()*cv.height*.5,w:6+Math.random()*8,h:3+Math.random()*6,
+    vy:2+Math.random()*4,vx:-1.5+Math.random()*3,r:Math.random()*6,vr:-.2+Math.random()*.4,c:cols[i%cols.length]});
+  if(!raf) loop();
+}
+function loop(){
+  cx.clearRect(0,0,cv.width,cv.height);
+  parts.forEach(p=>{ p.y+=p.vy*devicePixelRatio; p.x+=p.vx; p.r+=p.vr; cx.save(); cx.translate(p.x,p.y); cx.rotate(p.r); cx.fillStyle=p.c; cx.fillRect(-p.w/2,-p.h/2,p.w,p.h); cx.restore(); });
+  parts = parts.filter(p=>p.y<cv.height+20);
+  raf = parts.length ? requestAnimationFrame(loop) : (cx.clearRect(0,0,cv.width,cv.height), null);
+}
+
+/* ================= AUDIENCE ================= */
+(function(){
+  let s = '<svg viewBox="0 0 400 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">';
+  for(let row=0; row<2; row++){
+    const y = row ? 92 : 70, r = row ? 15 : 12, fill = row ? "#050303" : "#140b0b";
+    for(let x = row?-6:8; x<410; x += row?30:26){
+      const d = (Math.random()*.35).toFixed(2), jy = Math.random()*5;
+      s += `<g class="head" style="animation-delay:${d}s"><circle cx="${x}" cy="${y-r*2.2+jy}" r="${r*.75}" fill="${fill}"/><ellipse cx="${x}" cy="${y+jy}" rx="${r*1.3}" ry="${r*1.2}" fill="${fill}"/></g>`;
+    }
+  }
+  document.getElementById("audience").innerHTML = s + "</svg>";
+})();
+
+const STATUE = `<svg class="statue" viewBox="0 0 60 120" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#b8892b"/><stop offset=".5" stop-color="#fff1c2"/><stop offset="1" stop-color="#b8892b"/></linearGradient></defs><circle cx="30" cy="12" r="8" fill="url(#g)"/><path d="M22 22h16l-2 22 4 4-4 4 2 36h-6l-2-30-2 30h-6l2-36-4-4 4-4z" fill="url(#g)"/><rect x="16" y="94" width="28" height="8" rx="2" fill="url(#g)"/><rect x="12" y="102" width="36" height="14" rx="3" fill="#3a2a10" stroke="url(#g)" stroke-width="2"/></svg>`;
+
+/* ================= BACKEND (Supabase REST) ================= */
+let hostPin = "", revealed = false;
+const backendOn = () => !SUPABASE_URL.startsWith("PASTE");
+async function rpc(fn, args){
+  const r = await fetch(SUPABASE_URL + "/rest/v1/rpc/" + fn, {
+    method:"POST", headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY,"Content-Type":"application/json"},
+    body: JSON.stringify(args||{})
+  });
+  if(!r.ok) throw new Error(await r.text());
+  const t = await r.text(); return t ? JSON.parse(t) : null;
+}
+function rowsToMap(rows){
+  const m = {};
+  (rows||[]).forEach(b => { if(b && ROSTER.includes(b.voter)) m[b.voter] = {votes:b.votes||{}, at:Date.parse(b.at)||0}; });
+  return m;
+}
+async function saveRemote(voter, votes){
+  if(!backendOn()) return false;
+  try{ await rpc("submit_ballot", {p_voter:voter, p_votes:votes}); return true; }catch(e){ return false; }
+}
+async function hostLoad(){ remote = rowsToMap(await rpc("host_get_ballots", {p_pin:hostPin})); }
+async function checkRevealed(){ try{ revealed = backendOn() ? !!(await rpc("is_revealed")) : false; }catch(e){} return revealed; }
+function initDb(){ checkRevealed(); }
+
+/* ================= SCREENS ================= */
+let current = "";
+function go(screen){ current = screen; app.scrollTop = 0; ({intro:renderIntro, who:renderWho, ballot:renderBallot, review:renderReview, sealed:renderSealed, host:renderHost, show:renderShow, votes:renderAllVotes}[screen])(); }
+
+function renderIntro(){
+  document.body.classList.remove("open");
+  app.innerHTML = `<div class="wrap center" style="margin-top:6vh">
+    <div class="logo">${STATUE}<div class="kicker">UNU-EHS presents</div></div>
+    <h1 class="gold-text">The FAST/WE<br>Awards 2026</h1>
+    <div class="play" style="font-style:italic;font-size:19px;color:var(--gold)">An evening of glamour, gossip and very serious research</div>
+    <div style="height:8px"></div>
+    <button class="btn" id="enter">Raise the curtain</button>
+  </div>`;
+  document.getElementById("enter").onclick = () => { audio(); fanfare(); document.body.classList.add("open"); setTimeout(()=>go("who"), 900); };
+}
+
+function renderWho(){
+  const local = lsGet();
+  app.innerHTML = `<div class="wrap">
+    <div class="center"><div class="kicker">Voting is open</div><h2 class="gold-text" style="margin-top:6px">Who's holding the ballot?</h2>
+    <p class="sub">Pick your name. You cannot vote for yourself, no matter how award-worthy you are.</p></div>
+    <div class="grid">${ROSTER.map(n=>`<button class="choice" data-n="${esc(n)}">${esc(short(n))}${local[n]?' <span class="small">(voted)</span>':''}</button>`).join("")}</div>
+    <div class="center"><button class="linkish" id="allBtn">See everyone's votes</button> <button class="linkish" id="hostBtn">Host controls</button></div>
+  </div>`;
+  app.querySelectorAll(".choice").forEach(b => b.onclick = () => { me = b.dataset.n; draft = Object.assign({}, (lsGet()[me]||{}).votes||{}); step = 0; go("ballot"); });
+  document.getElementById("hostBtn").onclick = () => go("host");
+  document.getElementById("allBtn").onclick = () => go("votes");
+}
+
+function renderBallot(){
+  const a = AWARDS[step];
+  const nominees = ROSTER.filter(n => n !== me);
+  app.innerHTML = `<div class="wrap">
+    <div class="row" style="justify-content:space-between;align-items:center"><span class="small">Ballot of ${esc(short(me))}</span><span class="small">${step+1} / ${AWARDS.length}</span></div>
+    <div class="progress"><i style="width:${(step/AWARDS.length)*100}%"></i></div>
+    <div class="card">
+      <div class="kicker">Category ${step+1}</div>
+      <div class="q" style="margin-top:10px">${esc(a.q)}</div>
+    </div>
+    <div class="grid">${nominees.map(n=>`<button class="choice ${draft[a.id]===n?'sel':''}" data-n="${esc(n)}">${esc(short(n))}</button>`).join("")}</div>
+    <div class="row">
+      <button class="btn ghost" id="back" style="flex:1">${step? "Back" : "Change name"}</button>
+      <button class="btn ghost" id="skip" style="flex:1">${draft[a.id] ? "Next" : "Skip"}</button>
+    </div>
+  </div>`;
+  app.querySelectorAll(".choice").forEach(b => b.onclick = () => {
+    draft[a.id] = b.dataset.n;
+    app.querySelectorAll(".choice").forEach(x=>x.classList.toggle("sel", x===b));
+    setTimeout(next, 280);
+  });
+  document.getElementById("back").onclick = () => step ? (step--, renderBallot()) : go("who");
+  document.getElementById("skip").onclick = next;
+  function next(){ if(step < AWARDS.length-1){ step++; renderBallot(); } else go("review"); }
+}
+
+function renderReview(){
+  const n = Object.keys(draft).length;
+  app.innerHTML = `<div class="wrap">
+    <div class="center"><div class="kicker">Final cut</div><h2 class="gold-text" style="margin-top:6px">Seal your envelope</h2>
+    <p class="sub">${n} of ${AWARDS.length} categories voted. Tap any line to change it.</p></div>
+    <div class="list">${AWARDS.map((a,i)=>`<div class="li" data-i="${i}"><span style="flex:1;padding-right:10px">${esc(a.q)}</span><b style="color:var(--gold)">${draft[a.id]?esc(short(draft[a.id])):'<span class="no">skipped</span>'}</b></div>`).join("")}</div>
+    <button class="btn" id="seal" ${n? "" : "disabled"}>Seal the envelope</button>
+  </div>`;
+  app.querySelectorAll(".li").forEach(l => l.onclick = () => { step = +l.dataset.i; go("ballot"); });
+  document.getElementById("seal").onclick = async (e) => {
+    e.target.disabled = true; e.target.textContent = "Sealing...";
+    const local = lsGet(); local[me] = {votes:draft, at:Date.now()}; lsSet(local);
+    synced = await saveRemote(me, draft);
+    applause(2.2); confetti();
+    go("sealed");
+  };
+}
+
+function renderSealed(){
+  const code = encodeBallot(me, draft);
+  app.innerHTML = `<div class="wrap center">
+    <div class="logo">${STATUE}</div>
+    <h2 class="gold-text">Your envelope is sealed</h2>
+    <p class="sub">${synced ? "Your ballot is in the vault. Results will be revealed at the ceremony." :
+      "Your vote did not reach the server. Check your connection and seal again, or send the code below to " + HOST_NAME + " on WhatsApp."}</p>
+    <div class="card" style="text-align:left">
+      <div class="small" style="margin-bottom:8px">${synced ? "Backup ballot code (only needed if " + HOST_NAME + " asks)" : "Your ballot code"}</div>
+      <div class="code" id="code">${esc(code)}</div>
+      <button class="btn ghost" id="copy" style="margin-top:12px">Copy code</button>
+    </div>
+    <button class="btn" id="nextVoter">Pass the phone to the next voter</button>
+  </div>`;
+  document.getElementById("copy").onclick = async (e) => {
+    try{ await navigator.clipboard.writeText(code); e.target.textContent = "Copied"; }
+    catch(err){ const r=document.createRange(); r.selectNodeContents(document.getElementById("code")); const s=getSelection(); s.removeAllRanges(); s.addRange(r); e.target.textContent="Selected: copy it manually"; }
+  };
+  document.getElementById("nextVoter").onclick = () => { me=null; draft={}; go("who"); };
+}
+
+function allBallots(){
+  const out = {};
+  const add = (src) => Object.entries(src).forEach(([v,b]) => { if(!out[v] || (b.at||0) >= (out[v].at||0)) out[v] = b; });
+  add(remote); add(imported); add(lsGet());
+  return out;
+}
+
+function renderHost(){
+  if(!hostPin){
+    app.innerHTML = `<div class="wrap">
+      <div class="center"><div class="kicker">Backstage</div><h2 class="gold-text" style="margin-top:6px">Host controls</h2>
+      <p class="sub">${HOST_NAME} only. Enter the host PIN.</p></div>
+      <div class="card"><input id="pin" type="password" autocomplete="off" placeholder="Host PIN"
+        style="width:100%;padding:14px;border-radius:10px;border:1px solid var(--gold2);background:#000;color:var(--gold3);font-size:18px">
+        <div class="small" id="pinMsg" style="margin-top:8px"></div></div>
+      <button class="btn" id="login">Enter backstage</button>
+      <button class="btn ghost" id="backWho">Back to voting</button></div>`;
+    document.getElementById("backWho").onclick = () => go("who");
+    document.getElementById("login").onclick = async () => {
+      hostPin = document.getElementById("pin").value.trim();
+      try{ await hostLoad(); renderHost(); }
+      catch(e){ hostPin=""; document.getElementById("pinMsg").textContent = backendOn() ? "Wrong PIN or no connection." : "Backend not configured yet (see setup guide)."; }
+    };
+    return;
+  }
+  const all = allBallots();
+  const count = Object.keys(all).length;
+  app.innerHTML = `<div class="wrap">
+    <div class="center"><div class="kicker">Backstage</div><h2 class="gold-text" style="margin-top:6px">Host controls</h2>
+    <p class="sub">${count} of ${ROSTER.length} ballots in.</p></div>
+    <div class="card list">${ROSTER.map(n=>`<div class="li"><span>${esc(n)}</span><span class="${all[n]?'ok':'no'}">${all[n]?'Voted':'Waiting'}</span></div>`).join("")}</div>
+    <button class="btn ghost" id="refresh">Refresh</button>
+    <button class="btn" id="start" ${count? "" : "disabled"}>Start the ceremony</button>
+    <div class="small center">Starting the ceremony closes voting and unlocks the full vote list for everyone.</div>
+    <button class="btn ghost" id="backWho">Back to voting</button>
+  </div>`;
+  document.getElementById("refresh").onclick = async (e) => { e.target.textContent="Loading..."; try{ await hostLoad(); }catch(err){} renderHost(); };
+  document.getElementById("start").onclick = async () => {
+    try{ await hostLoad(); await rpc("host_set_revealed", {p_pin:hostPin, p_value:true}); revealed = true; }catch(e){}
+    buildCeremony(); showIdx = -1; go("show");
+  };
+  document.getElementById("backWho").onclick = () => go("who");
+}
+
+async function renderAllVotes(){
+  app.innerHTML = `<div class="wrap center"><h2 class="gold-text">Opening the vault...</h2></div>`;
+  let rows = null;
+  try{ if(await checkRevealed()) rows = await rpc("public_ballots"); }catch(e){}
+  if(!rows){
+    app.innerHTML = `<div class="wrap center"><div class="logo">${STATUE}</div><h2 class="gold-text">The vault is locked</h2>
+      <p class="sub">All votes become visible once the ceremony starts.</p><button class="btn" id="b">Back</button></div>`;
+    document.getElementById("b").onclick = () => go("who"); return;
+  }
+  const m = rowsToMap(rows);
+  app.innerHTML = `<div class="wrap"><div class="center"><div class="kicker">The full record</div><h2 class="gold-text" style="margin-top:6px">Who voted for whom</h2>
+    <p class="sub">${Object.keys(m).length} ballots counted.</p></div>
+    ${AWARDS.map(a=>`<div class="card"><div class="q" style="font-size:17px">${esc(a.q)}</div><div class="list" style="margin-top:10px">
+      ${Object.keys(m).sort().map(v=>`<div class="li"><span>${esc(short(v))}</span><b style="color:var(--gold)">${m[v].votes[a.id]?esc(short(m[v].votes[a.id])):'<span class="no">skipped</span>'}</b></div>`).join("")}
+    </div></div>`).join("")}
+    <button class="btn" id="b">Back</button></div>`;
+  document.getElementById("b").onclick = () => go("who");
+}
+
+function confirmModal(text, okLabel, onOk){
+  const m = document.getElementById("modal");
+  m.innerHTML = `<div class="card" style="max-width:380px;width:100%"><p class="sub" style="margin-top:0">${esc(text)}</p>
+    <div class="row"><button class="btn ghost" id="mNo" style="flex:1">Cancel</button><button class="btn" id="mOk" style="flex:1">${esc(okLabel)}</button></div></div>`;
+  m.classList.remove("hidden");
+  document.getElementById("mNo").onclick = () => m.classList.add("hidden");
+  document.getElementById("mOk").onclick = () => { m.classList.add("hidden"); onOk(); };
+}
+
+/* ================= ALLOCATION ================= */
+// Hungarian algorithm (min cost), rows <= cols. Returns col index per row.
+function hungarian(cost){
+  const n = cost.length, m = cost[0].length, INF = 1e18;
+  const u = Array(n+1).fill(0), v = Array(m+1).fill(0), p = Array(m+1).fill(0), way = Array(m+1).fill(0);
+  for(let i=1;i<=n;i++){
+    p[0]=i; let j0=0; const minv=Array(m+1).fill(INF), used=Array(m+1).fill(false);
+    do{
+      used[j0]=true; const i0=p[j0]; let delta=INF, j1=0;
+      for(let j=1;j<=m;j++) if(!used[j]){
+        const cur = cost[i0-1][j-1]-u[i0]-v[j];
+        if(cur<minv[j]){ minv[j]=cur; way[j]=j0; }
+        if(minv[j]<delta){ delta=minv[j]; j1=j; }
+      }
+      for(let j=0;j<=m;j++){ if(used[j]){ u[p[j]]+=delta; v[j]-=delta; } else minv[j]-=delta; }
+      j0=j1;
+    } while(p[j0]!==0);
+    do{ const j1=way[j0]; p[j0]=p[j1]; j0=j1; } while(j0);
+  }
+  const ans = Array(n).fill(-1);
+  for(let j=1;j<=m;j++) if(p[j]) ans[p[j]-1]=j-1;
+  return ans;
+}
+
+let ceremony = [], finale = {}, showIdx = -1, phase = "intro";
+function buildCeremony(){
+  const ballots = allBallots();
+  const P = ROSTER, C = AWARDS;
+  const votes = P.map(()=>C.map(()=>0));
+  Object.values(ballots).forEach(b => C.forEach((a,ci) => { const pi = P.indexOf(b.votes[a.id]); if(pi>=0) votes[pi][ci]++; }));
+  const top = C.map((_,ci) => { let best=-1, bv=0; P.forEach((_,pi)=>{ if(votes[pi][ci]>bv){ bv=votes[pi][ci]; best=pi; } }); return best; });
+  // Step 1: give every person one award, maximising total votes behind the awards.
+  // Step 2: repeat in rounds for leftover categories, at most one award per person per round,
+  // so nobody gets a third award while someone else with votes still has only one.
+  // Weight: first maximise how many people get a voted-for award, then total votes, then top vote-getter.
+  const W = (pi,ci) => (votes[pi][ci]>0 ? 100000 : 0) + votes[pi][ci]*100 + (top[ci]===pi ? 1 : 0);
+  const winner = C.map(()=>-1);
+  for(let round=0; round<C.length; round++){
+    const open = C.map((_,ci)=>ci).filter(ci => winner[ci]<0 && P.some((_,pi)=>votes[pi][ci]>0));
+    if(!open.length) break;
+    let assigned = 0;
+    if(P.length <= open.length){
+      const asg = hungarian(P.map((_,pi)=>open.map(ci=>-W(pi,ci))));
+      asg.forEach((k,pi)=>{ if(k>=0 && votes[pi][open[k]]>0){ winner[open[k]]=pi; assigned++; } });
+    } else {
+      const asg = hungarian(open.map(ci=>P.map((_,pi)=>-W(pi,ci))));
+      asg.forEach((pi,k)=>{ if(pi>=0 && votes[pi][open[k]]>0){ winner[open[k]]=pi; assigned++; } });
+    }
+    if(!assigned) break;
+  }
+  const awardsOf = P.map(()=>0); winner.forEach(pi=>{ if(pi>=0) awardsOf[pi]++; });
+  ceremony = [];
+  C.forEach((a,ci) => {
+    if(winner[ci]<0) return;
+    const ranked = P.map((_,pi)=>pi).filter(pi=>votes[pi][ci]>0).sort((x,y)=>votes[y][ci]-votes[x][ci]);
+    let noms = ranked.slice(0,3); if(!noms.includes(winner[ci])) noms[noms.length? Math.min(2,noms.length-1):0] = winner[ci];
+    while(noms.length<3){ const extra = P.map((_,i)=>i).find(i=>!noms.includes(i)); if(extra===undefined) break; noms.push(extra); }
+    noms = noms.map(i=>P[i]).sort();
+    ceremony.push({type:"award", award:a, winner:P[winner[ci]], noms});
+  });
+  // Step 3: backup titles for anyone still empty-handed.
+  let bi = 0;
+  P.forEach((name,pi) => { if(awardsOf[pi]===0){ const b = BACKUPS[bi % BACKUPS.length]; bi++; ceremony.push({type:"award", award:{q:"A special honour from the Academy", t:b.t, c:b.c}, winner:name, noms:null}); } });
+  // Insert commercial breaks.
+  const withAds = []; let adI = 0;
+  ceremony.forEach((s,i) => { withAds.push(s); if((i+1)%AD_EVERY===0 && i<ceremony.length-1){ withAds.push({type:"ad", ad:ADS[adI%ADS.length]}); adI++; } });
+  ceremony = withAds;
+  finale = {}; ceremony.forEach(s => { if(s.type==="award"){ (finale[s.winner] = finale[s.winner]||[]).push(s.award.t); } });
+}
+
+/* ================= CEREMONY ================= */
+function renderShow(){
+  document.body.classList.remove("spotlight");
+  if(showIdx < 0){
+    app.innerHTML = `<div class="wrap center" style="margin-top:4vh">
+      <div class="logo">${STATUE}</div>
+      <div class="kicker">Live from Bonn</div>
+      <h1 class="gold-text">Good evening, FAST/WE</h1>
+      <p class="sub">The ballots are counted. The envelopes are sealed. Nobody leaves without a statuette.</p>
+      <button class="btn" id="go">Begin the ceremony</button></div>`;
+    document.getElementById("go").onclick = () => { fanfare(); applause(3); showIdx=0; phase="noms"; renderShow(); };
+    return;
+  }
+  if(showIdx >= ceremony.length) return renderFinale();
+  const s = ceremony[showIdx];
+  const awardNum = ceremony.slice(0,showIdx+1).filter(x=>x.type==="award").length;
+  const totalAwards = ceremony.filter(x=>x.type==="award").length;
+  if(s.type==="ad"){
+    const a = s.ad;
+    app.innerHTML = `<div class="wrap center">
+      <div class="bumper"><i></i>COMMERCIAL BREAK</div>
+      <div class="ad"><div class="ad-screen" style="--a1:${a.a1};--a2:${a.a2}">
+        <div class="small" style="color:#fff;opacity:.8;letter-spacing:.2em">A WORD FROM OUR SPONSORS</div>
+        <div class="ad-brand">${esc(a.brand)}</div>
+        <div class="ad-tag">${esc(a.tag)}</div>
+        <div class="ad-fine">${esc(a.fine)}</div>
+      </div></div>
+      <p class="sub">Grab a drink. Refill a glass. The show continues shortly.</p>
+      <button class="btn" id="back">Back to the show</button></div>`;
+    document.getElementById("back").onclick = () => { showIdx++; phase="noms"; fanfare(); renderShow(); };
+    return;
+  }
+  const a = s.award;
+  if(phase==="noms"){
+    app.innerHTML = `<div class="wrap center">
+      <div class="kicker">Award ${awardNum} of ${totalAwards}</div>
+      <div class="q" style="font-size:19px;color:var(--muted)">${esc(a.q)}</div>
+      <h2 class="gold-text" style="font-size:26px">${esc(a.t)}</h2>
+      ${s.noms ? `<div class="small">The nominees are</div><div class="noms">${s.noms.map(n=>`<span class="nom">${esc(short(n))}</span>`).join("")}</div>` : `<div class="small">The Academy has one more envelope</div>`}
+      <div class="envelope" id="env"></div>
+      <button class="btn" id="open">Open the envelope</button></div>`;
+    document.getElementById("open").onclick = (e) => {
+      e.target.disabled = true; e.target.textContent = "And the award goes to...";
+      document.body.classList.add("spotlight");
+      const env = document.getElementById("env"); env.classList.add("shake"); drumroll(2.6);
+      setTimeout(()=>{ env.classList.remove("shake"); env.classList.add("opened"); }, 2400);
+      setTimeout(()=>{ phase="win"; renderShow(); }, 2700);
+    };
+  } else {
+    app.innerHTML = `<div class="wrap center">
+      <div class="kicker reveal">And the award goes to</div>
+      <div class="winner-name gold-text reveal" style="animation-delay:.1s">${esc(s.winner)}</div>
+      <div class="award-title gold-text reveal" style="animation-delay:.4s">${esc(a.t)}</div>
+      <div class="card reveal" style="animation-delay:.7s"><p class="play" style="margin:0;font-size:18px;line-height:1.5;font-style:italic">${esc(a.c)}</p></div>
+      <button class="btn reveal" id="next" style="animation-delay:1s">${showIdx+1>=ceremony.length ? "Curtain call" : "Next award"}</button></div>`;
+    document.body.classList.add("spotlight");
+    confetti(); applause(4); fanfare();
+    document.getElementById("next").onclick = () => { showIdx++; phase="noms"; renderShow(); };
+  }
+}
+
+function renderFinale(){
+  document.body.classList.remove("spotlight");
+  app.innerHTML = `<div class="wrap center">
+    <div class="logo">${STATUE}</div>
+    <h1 class="gold-text">Curtain call</h1>
+    <p class="sub">Every member of the FAST/WE cast takes home a statuette tonight.</p>
+    <div class="finale-grid" style="text-align:left">${Object.entries(finale).sort().map(([n,ts])=>`<div class="fg"><b>${esc(n)}</b>${ts.map(t=>`<span>${esc(t)}</span>`).join("")}</div>`).join("")}</div>
+    <button class="btn" id="allv">See everyone's votes</button><button class="btn ghost" id="again">Back to host controls</button></div>`;
+  confetti(); applause(5); fanfare();
+  document.getElementById("again").onclick = () => go("host");
+  document.getElementById("allv").onclick = () => go("votes");
+}
+
+/* ================= BOOT ================= */
+go("intro");
+initDb();
+</script>
+</body>
+</html>
