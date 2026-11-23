@@ -167,6 +167,10 @@ const short = n => n==="Maria Sol Saliva" ? "Maria Sol" : n.split(" ")[0];
 
 // Awards. q = ballot question, t = award title, c = compliment read on stage.
 const AWARDS = [
+ {id:"travel", q:"Whose passport has seen the most conferences and COPs?", t:"Best International Feature",
+  c:"More stamps than a ministry archive. Carrying FAST/WE across borders, one side event at a time."},
+ {id:"visuals", q:"Who makes the best slides, maps or figures?", t:"Best Visual Effects",
+  c:"Making data look like it belongs in a gallery. The audience gasps at every chart."},
  {id:"newbie", q:"Best newcomer to the FAST/WE cast this year?", t:"Breakthrough Performance of the Year",
   c:"Joined the cast and started stealing scenes from day one. Bonn was not ready."},
  {id:"distracted", q:"Who opens one email and ends up in five other projects by lunch?", t:"Everything Everywhere All at Once",
@@ -187,12 +191,9 @@ const AWARDS = [
   c:"Morale is a renewable resource, and you are its main supplier."},
  {id:"calm", q:"Who stays calm when everything is on fire (metaphorically, hopefully)?", t:"Best Supporting Calm",
   c:"The steady hand behind every take. Things fall apart a little less when you are in the room."},
- {id:"travel", q:"Whose passport has seen the most conferences and COPs?", t:"Best International Feature",
-  c:"More stamps than a ministry archive. Carrying FAST/WE across borders, one side event at a time."},
- {id:"files", q:"Who always knows where that one file is on the shared drive?", t:"Lifetime Achievement in Finding Things",
+  {id:"files", q:"Who always knows where that one file is on the shared drive?", t:"Lifetime Achievement in Finding Things",
   c:"The human search bar. Report_final_FINAL_v3 holds no secrets from you."},
- {id:"visuals", q:"Who makes the best slides, maps or figures?", t:"Best Visual Effects",
-  c:"Making data look like it belongs in a gallery. The audience gasps at every chart."}
+ 
 ];
 
 // Backup titles for anyone the votes did not reach.
@@ -367,8 +368,9 @@ const stepsFor = v => AWARDS.filter(a => a.fixed !== v);
 function renderBallot(){
   const S = stepsFor(me);
   const a = S[step];
-  const nominees = ROSTER.filter(n => n !== me && (a.fixed || n !== FIXED_WINNER));
-  const used = new Set(a.fixed ? [] : S.filter(x => x.id!==a.id && !x.fixed).map(x => draft[x.id]).filter(Boolean));
+  const nominees = ROSTER.filter(n => a.fixed || n !== FIXED_WINNER);
+  const cnt = {}; if(!a.fixed) S.filter(x => x.id!==a.id && !x.fixed).forEach(x => { const v = draft[x.id]; if(v) cnt[v] = (cnt[v]||0)+1; });
+  const used = n => (cnt[n]||0) >= 2;
   app.innerHTML = `<div class="wrap">
     <div class="row" style="justify-content:space-between;align-items:center"><span class="small">Ballot of ${esc(short(me))}</span><span class="small">${step+1} / ${S.length}</span></div>
     <div class="progress"><i style="width:${(step/S.length)*100}%"></i></div>
@@ -376,8 +378,8 @@ function renderBallot(){
       <div class="kicker">Category ${step+1}</div>
       <div class="q" style="margin-top:10px">${esc(a.q)}</div>
     </div>
-    <div class="grid">${nominees.map(n=>`<button class="choice ${draft[a.id]===n?'sel':''} ${used.has(n)?'used':''}" data-n="${esc(n)}">${esc(short(n))}</button>`).join("")}</div>
-    ${a.fixed ? "" : `<div class="small center">Each colleague can be picked once on your ballot. Crossed-out names are already used.</div>`}
+    <div class="grid">${nominees.map(n=>`<button class="choice ${draft[a.id]===n?'sel':''} ${used(n)?'used':''}" data-n="${esc(n)}">${esc(short(n))}</button>`).join("")}</div>
+    ${a.fixed ? "" : `<div class="small center">You can vote for yourself. Each colleague can be picked up to twice on your ballot, and crossed-out names are used up.</div>`}
     <div class="row">
       <button class="btn ghost" id="back" style="flex:1">${step? "Back" : "Change name"}</button>
       <button class="btn ghost" id="skip" style="flex:1">${draft[a.id] ? "Next" : "Skip"}</button>
@@ -538,8 +540,8 @@ function buildCeremony(){
   const C = AWARDS.filter(a => !a.fixed);             // categories decided by votes
   const votes = P.map(() => C.map(() => 0));
   Object.entries(ballots).forEach(([voter,b]) => {
-    const seen = new Set();                            // one vote per colleague per ballot
-    C.forEach((a,ci) => { const nm = b.votes[a.id]; const pi = P.indexOf(nm); if(pi>=0 && nm!==voter && !seen.has(pi)){ votes[pi][ci]++; seen.add(pi); } });
+    const seen = {};                                   // at most two votes per colleague per ballot
+    C.forEach((a,ci) => { const nm = b.votes[a.id]; const pi = P.indexOf(nm); if(pi>=0 && (seen[pi]||0)<2){ votes[pi][ci]++; seen[pi]=(seen[pi]||0)+1; } });
   });
   const top = C.map((_,ci) => { let best=-1, bv=0; P.forEach((_,pi)=>{ if(votes[pi][ci]>bv){ bv=votes[pi][ci]; best=pi; } }); return best; });
   // One award per person: maximise how many people win a category they got votes in, then total votes.
