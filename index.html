@@ -15,14 +15,14 @@
   --safe-t:env(safe-area-inset-top,0px); --safe-b:env(safe-area-inset-bottom,0px);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;height:100%;background:var(--ink);color:var(--text);font-family:Inter,system-ui,sans-serif;overflow:hidden}
+html,body{margin:0;min-height:100%;background:var(--ink);color:var(--text);font-family:Inter,system-ui,sans-serif;overflow-x:hidden}
 button{font:inherit;color:inherit;cursor:pointer}
 .gold-text{background:linear-gradient(180deg,var(--gold3),var(--gold) 45%,var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
 .cinzel{font-family:Cinzel,serif;letter-spacing:.06em}
 .play{font-family:"Playfair Display",serif}
 
 /* Stage */
-#stage{position:fixed;inset:0;height:100dvh;padding-bottom:calc(60px + var(--safe-b));box-sizing:border-box;display:flex;flex-direction:column;
+#stage{position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
    radial-gradient(ellipse 60% 45% at 50% 18%,rgba(255,226,150,.22),transparent 70%),
    radial-gradient(ellipse 90% 60% at 50% 110%,rgba(122,11,20,.55),transparent 70%),
@@ -49,21 +49,21 @@ body.open #cL{transform:translateX(-92%) scaleX(.9)}
 body.open #cR{transform:translateX(92%) scaleX(.9)}
 
 /* Main scroll area */
-main{position:relative;z-index:10;flex:1;min-height:0;touch-action:pan-y;overscroll-behavior:contain;overflow-y:auto;-webkit-overflow-scrolling:touch;
-  padding:calc(88px + var(--safe-t)) 18px 24px;display:flex;flex-direction:column;align-items:center}
+main{position:relative;z-index:10;min-height:100vh;min-height:100dvh;box-sizing:border-box;
+  padding:calc(88px + var(--safe-t)) 18px calc(160px + var(--safe-b));display:flex;flex-direction:column;align-items:center}
 .wrap{flex-shrink:0;width:100%;max-width:480px;display:flex;flex-direction:column;gap:16px}
 .center{text-align:center}
 .wrap::after{content:"";display:block;flex-shrink:0;height:40px}
 
 /* Audience */
-#audience{position:fixed;left:0;right:0;bottom:0;height:calc(60px + var(--safe-b));z-index:20;pointer-events:none}
+#audience{position:fixed;left:0;right:0;bottom:0;height:calc(44px + var(--safe-b));z-index:20;pointer-events:none}
 #audience svg{width:100%;height:100%;display:block}
 #audience .head{transform-box:fill-box;transform-origin:50% 100%}
 body.cheer #audience .head{animation:bob .35s ease-in-out infinite alternate}
 @keyframes bob{to{transform:translateY(-6px)}}
 
 /* Top bar */
-#topbar{position:fixed;top:calc(40px + var(--safe-t));right:10px;z-index:31;display:flex;gap:8px}
+#topbar{position:absolute;top:calc(40px + var(--safe-t));right:10px;z-index:31;display:flex;gap:8px}
 .pill{background:rgba(0,0,0,.55);border:1px solid rgba(231,196,106,.4);border-radius:999px;padding:6px 12px;font-size:13px;color:var(--gold)}
 
 /* Elements */
@@ -160,11 +160,12 @@ body.spotlight .spot{opacity:1}
 /* ================= CONFIG ================= */
 // Players (voters and nominees). Dustin is not playing.
 const ROSTER = [
-  "Jaffar Abbas","Nico Fricke","Flavia Guerra","Andrea Ramirez","Alejandra Ramos-Galvez",
-  "Andreia da Silva Rosa","Simone Sandholz","Dominic Sett","Maria Sol Saliva","Lucas Turmena",
-  "Yauheniya Shershunovich","Rafael Kuhn","Nabiyya Perrenia"
+  "Alejandra Ramos-Galvez","Andrea Ramirez","Andreia da Silva Rosa","Dominic Sett","Flavia Guerra",
+  "Jaffar Abbas","Lucas Turmena","Nabiyya Perrenia","Nico Fricke","Rafael Kuhn","Simone Sandholz",
+  "Maria Sol Saliva","Yauheniya Shershunovich"
 ];
-const short = n => n==="Maria Sol Saliva" ? "Maria Sol" : n.split(" ")[0];
+const short = n => n==="Maria Sol Saliva" ? "Sol" : n.split(" ")[0];
+const byShort = (x,y) => short(x).localeCompare(short(y));
 
 // Awards. q = ballot question, t = award title, c = compliment read on stage.
 const AWARDS = [
@@ -350,7 +351,7 @@ function initDb(){ checkRevealed(); }
 
 /* ================= SCREENS ================= */
 let current = "";
-function go(screen){ if(pollT){ clearInterval(pollT); pollT=null; } current = screen; app.scrollTop = 0; ({intro:renderIntro, who:renderWho, ballot:renderBallot, review:renderReview, sealed:renderSealed, host:renderHost, show:renderShow, votes:renderAllVotes, watch:renderWatch}[screen])(); }
+function go(screen){ if(pollT){ clearInterval(pollT); pollT=null; } current = screen; window.scrollTo(0,0); ({intro:renderIntro, who:renderWho, ballot:renderBallot, review:renderReview, sealed:renderSealed, host:renderHost, show:renderShow, votes:renderAllVotes, watch:renderWatch}[screen])(); }
 
 function renderIntro(){
   document.body.classList.remove("open");
@@ -371,6 +372,7 @@ function renderWho(){
     <p class="sub">Pick your name. Yes, you may vote for yourself. We will not tell anyone.</p></div>
     <div class="grid">${ROSTER.map(n=>`<button class="choice" data-n="${esc(n)}">${esc(short(n))}${local[n]?' <span class="small">(voted)</span>':''}</button>`).join("")}</div>
     <button class="btn" id="watchBtn">Watch the ceremony</button>
+    <div class="small center" style="opacity:.45">build 8</div>
     <div class="center"><button class="linkish" id="allBtn">See everyone's votes</button> <button class="linkish" id="hostBtn">Host controls</button></div>
   </div>`;
   app.querySelectorAll(".choice").forEach(b => b.onclick = () => { me = b.dataset.n; draft = Object.assign({}, (lsGet()[me]||{}).votes||{}); step = 0; go("ballot"); });
@@ -584,7 +586,7 @@ function buildCeremony(){
     const ranked = P.map((_,pi)=>pi).filter(pi=>votes[pi][ci]>0).sort((x,y)=>votes[y][ci]-votes[x][ci]);
     let noms = ranked.slice(0,3); if(!noms.includes(winner[ci])) noms[noms.length-1] = winner[ci];
     while(noms.length<3){ const extra = P.map((_,i)=>i).find(i=>!noms.includes(i) && !has[i]) ?? P.map((_,i)=>i).find(i=>!noms.includes(i)); if(extra===undefined) break; noms.push(extra); }
-    entries.push({type:"award", award:a, winner:P[winner[ci]], noms:noms.map(i=>P[i]).sort()});
+    entries.push({type:"award", award:a, winner:P[winner[ci]], noms:noms.map(i=>P[i]).sort(byShort)});
   });
   // Backup titles for everyone the votes did not reach, so each person gets exactly one award.
   const pool = BACKUPS.slice().sort(() => Math.random()-.5); let bi = 0;
@@ -635,7 +637,7 @@ function drawModel(m, host){
       <div class="logo">${STATUE}</div>
       <h1 class="gold-text">Curtain call</h1>
       <p class="sub">Every member of the FAST/WE cast takes home a statuette tonight.</p>
-      <div class="finale-grid" style="text-align:left">${Object.entries(m.finale||{}).sort().map(([n,ts])=>`<div class="fg"><b>${esc(n)}</b>${ts.map(t=>`<span>${esc(t)}</span>`).join("")}</div>`).join("")}</div>
+      <div class="finale-grid" style="text-align:left">${Object.entries(m.finale||{}).sort((x,y)=>byShort(x[0],y[0])).map(([n,ts])=>`<div class="fg"><b>${esc(n)}</b>${ts.map(t=>`<span>${esc(t)}</span>`).join("")}</div>`).join("")}</div>
       <button class="btn" id="allv">See everyone's votes</button>
       ${host ? `<button class="btn ghost" id="again">Back to host controls</button>` : `<button class="btn ghost" id="again">Back to start</button>`}</div>`;
     confetti(); applause(5); fanfare();
