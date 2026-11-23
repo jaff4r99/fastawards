@@ -53,6 +53,7 @@ main{position:relative;z-index:10;flex:1;min-height:0;touch-action:pan-y;overscr
   padding:calc(56px + var(--safe-t)) 18px calc(120px + var(--safe-b));display:flex;flex-direction:column;align-items:center}
 .wrap{flex-shrink:0;width:100%;max-width:480px;display:flex;flex-direction:column;gap:16px}
 .center{text-align:center}
+.wrap::after{content:"";display:block;flex-shrink:0;height:150px}
 
 /* Audience */
 #audience{position:fixed;left:0;right:0;bottom:0;height:calc(84px + var(--safe-b));z-index:20;pointer-events:none}
@@ -354,7 +355,7 @@ function renderWho(){
   const local = lsGet();
   app.innerHTML = `<div class="wrap">
     <div class="center"><div class="kicker">Voting is open</div><h2 class="gold-text" style="margin-top:6px">Who's holding the ballot?</h2>
-    <p class="sub">Pick your name. You cannot vote for yourself, no matter how award-worthy you are.</p></div>
+    <p class="sub">Pick your name. Yes, you may vote for yourself. We will not tell anyone.</p></div>
     <div class="grid">${ROSTER.map(n=>`<button class="choice" data-n="${esc(n)}">${esc(short(n))}${local[n]?' <span class="small">(voted)</span>':''}</button>`).join("")}</div>
     <div class="center"><button class="linkish" id="allBtn">See everyone's votes</button> <button class="linkish" id="hostBtn">Host controls</button></div>
   </div>`;
